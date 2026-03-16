@@ -1,0 +1,127 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ecedee;
+  padding: 10px 20px;
+  color: #111111;
+  position: relative;
+  /* border: #111111 solid 1px; */
+  height: 2rem;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: #181717;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links li a:hover {
+  /* text-decoration: underline; */
+  color: #c62828;
+}
+
+/* Contact button */
+.contact-btn {
+  background: #c62828;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.contact-btn:hover {
+  background: #f18a8a;
+  color: #fff;
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #f57c00;
+  transition: all 0.3s ease;
+}
+
+.bar.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.bar.open:nth-child(2) {
+  opacity: 0;
+}
+
+.bar.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #f57c00;
+    flex-direction: column;
+    width: 200px;
+    padding: 20px;
+    display: none;
+    border-radius: 8px;
+    color: #fff;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+    color: #111111;
+  }
+
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .nav-links li a:hover {
+    color: #111111; /* optional: dark hover for contrast */
+  }
+
+
+  .contact-btn {
+    display: none; /* hide button on small screens, optional */
+  }
+}
