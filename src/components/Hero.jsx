@@ -7,22 +7,13 @@ const Hero = () => {
     <section className="hero">
       {/* Left Side */}
       <div className="hero-text fade-in-left">
-        <h2>Advanced Truck Driving School you can Trust.</h2>
-        <p>
-          We are dedicated to providing top-quality truck driving training for aspiring drivers. Our comprehensive programs combine hands-on experience, industry-recognized certification, and access to job opportunities to help you succeed in your trucking career.
-        </p>
+        <h2>Welcome to the Admin Dasboard Portal</h2>
+        {/* <p>
+          Login details are provided to you by the school only if you are an admin or staff. If you are a student, please contact the school administration for access.
+        </p> */}
         <button className="cta-btn bounce">Enrol Now</button>
-
-        {/* Partner Logos */}
-        <div className="partners">
-          <span>Slack</span>
-          <span>Magnolia</span>
-          <span>Powerups</span>
-          <span>Wrappsed</span>
-          <span>Keepme</span>
-        </div>
       </div>
-
+        
       {/* Right Side */}
       <div className="hero-image fade-in-right">
         <img src={heroImage} alt="Truck driving training" />

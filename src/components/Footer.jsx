@@ -14,7 +14,7 @@ const Footer = () => {
           transition={{ duration: 0.6 }}
         >
           <h2>CDI Truck</h2>
-          <p>We provide top-quality truck driving training for aspiring drivers.</p>
+          <p>Welcome to the Admin Dasboard Portal</p>
         </motion.div>
 
         {/* Navigation Links */}

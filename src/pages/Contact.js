@@ -1,28 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+// import Navbar from "../components/Navbar";
+import ContactUs from "../components/ContactForm";
+// import Promo from "../components/Promo";
 
-function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Message sent successfully!");
-  };
-
+function Home() {
   return (
-    <section className="contact">
-      <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Your Email" onChange={handleChange} required />
-        <textarea name="message" placeholder="Your Message" onChange={handleChange} required />
-        <button type="submit" className="cta-btn">Send Message</button>
-      </form>
+    <section className="home">
+      {/* <Navbar /> */}
+      <ContactUs />
+  
     </section>
   );
 }
 
-export default Contact;
+export default Home;
