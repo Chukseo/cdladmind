@@ -13,7 +13,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="logo">
         <img src={logo} alt="CDI Truck Logo" className="logo-img" />
-        <h1>Great Lake CDL</h1>
+        <h1>CDL Admin</h1>
       </div>
 
       {/* Hamburger Icon */}

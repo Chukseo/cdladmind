@@ -7,8 +7,8 @@
   padding: 10px 20px;
   color: #111111;
   position: relative;
-  /* border: #111111 solid 1px; */
   height: 2rem;
+  z-index: 1000;
 }
 
 /* Logo */

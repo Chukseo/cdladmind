@@ -1,195 +1,155 @@
-import React, { useEffect, useState } from "react";
-import { Bar, Pie } from "react-chartjs-2";
+import React, { useState, useEffect } from "react";
+import { Pie, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
   ArcElement,
-  BarElement,
+  LineElement,
+  PointElement,
   CategoryScale,
   LinearScale
 } from "chart.js";
 import "./Dashboard.css";
 
-// Register Chart.js components
-ChartJS.register(Title, Tooltip, Legend, ArcElement, BarElement, CategoryScale, LinearScale);
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale
+);
 
 const Dashboard = () => {
-  const [contacts, setContacts] = useState([]);
-  const [applications, setApplications] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [visitors, setVisitors] = useState([]);
+  const [selectedStage, setSelectedStage] = useState("Leads");
 
   useEffect(() => {
-    setTimeout(() => {
-      // ✅ Sample contacts
-      setContacts([
-        { id: 1, name: "Jane Doe", email: "jane@example.com", phone: "+2348012345678", message: "Interested in enrollment" },
-        { id: 2, name: "John Smith", email: "john@example.com", phone: "+2348098765432", message: "Need more info about courses" },
-        { id: 3, name: "Mary Johnson", email: "mary@example.com", phone: "+2348023456789", message: "Can I schedule a visit?" }
-      ]);
-
-      // ✅ Sample applications
-      setApplications([
-        { id: 1, applicant_name: "Alice Brown", course: "Truck Driving Basics", status: "Pending" },
-        { id: 2, applicant_name: "Bob White", course: "Advanced Logistics", status: "Approved" },
-        { id: 3, applicant_name: "Charlie Green", course: "Heavy Vehicle Training", status: "Rejected" }
-      ]);
-
-      // ✅ Sample enrolled students
-      setStudents([
-        { id: 1, name: "Samuel Okoro", course: "Truck Driving Basics", start_date: "2026-03-01" },
-        { id: 2, name: "Grace Adeyemi", course: "Advanced Logistics", start_date: "2026-02-15" },
-        { id: 3, name: "David Musa", course: "Heavy Vehicle Training", start_date: "2026-01-20" }
-      ]);
-
-      setLoading(false);
-    }, 1500);
+    setVisitors([
+      { id: 1, name: "Jane Dominuc", origin: "Google", email: "jane@example.com", phone: "+2348012345678", stages: ["Leads", "Applied"], date: "Nov 2 2025" },
+      { id: 2, name: "John Tray", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads", "Messaged"], date: "Nov 3 2025" },
+      { id: 3, name: "Mary Johnson", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Pending"], date: "Nov 4 2025" },
+      { id: 4, name: "David Musa", origin: "Direct", email: "david@example.com", phone: "+2348056789123", stages: ["Leads", "Applied", "Contacted"], date: "Nov 5 2025" },
+      { id: 5, name: "John Smith", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads", "Contacted"], date: "Nov 6 2025" },
+      { id: 6, name: "Mary Haze", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Applied"], date: "Nov 7 2025" },
+      { id: 7, name: "David Karl", origin: "Direct", email: "david@example.com", phone: "+2348056789123", stages: ["Leads", "Messaged"], date: "Nov 8 2025" },
+      { id: 8, name: "Jane Drake", origin: "Google", email: "jane@example.com", phone: "+2348012345678", stages: ["Leads", "Contacted"], date: "Nov 9 2025" },
+      { id: 9, name: "John Park", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads", "Applied"], date: "Nov 10 2025" },
+      { id: 10, name: "Mary Kelly", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Messaged"], date: "Nov 11 2025" }
+    ]);
   }, []);
 
-  if (loading) return <p className="loading">Loading dashboard...</p>;
+  const stages = [
+    { name: "Leads", color: "#f57c00" },
+    { name: "Contacted", color: "#ff9800" },
+    { name: "Applied", color: "#2196f3" },
+    { name: "Messaged", color: "#4caf50" },
+    { name: "Pending", color: "#4b534c" }
+  ];
 
-  // ✅ Chart Data
-  const applicationStatusData = {
-    labels: ["Approved", "Pending", "Rejected"],
+  const filteredVisitors = visitors.filter(
+    v => Array.isArray(v.stages) && v.stages.includes(selectedStage)
+  );
+
+  // Stage counts for pie chart
+  const stageCounts = stages.map(stage =>
+    visitors.filter(v => v.stages.includes(stage.name)).length
+  );
+
+  const pieData = {
+    labels: stages.map(s => s.name),
     datasets: [
       {
-        label: "Applications",
-        data: [
-          applications.filter(app => app.status === "Approved").length,
-          applications.filter(app => app.status === "Pending").length,
-          applications.filter(app => app.status === "Rejected").length
-        ],
-        backgroundColor: ["#4caf50", "#ff9800", "#f44336"]
+        data: stageCounts,
+        backgroundColor: stages.map(s => s.color),
+        borderWidth: 2
       }
     ]
   };
 
-  const studentsByCourseData = {
-    labels: [...new Set(students.map(s => s.course))],
-    datasets: [
-      {
-        label: "Students Enrolled",
-        data: [...new Set(students.map(s => s.course))].map(
-          course => students.filter(s => s.course === course).length
-        ),
-        backgroundColor: ["#2196f3", "#9c27b0", "#ffc107"]
-      }
-    ]
+  // Line chart: visitors per date
+  const dates = [...new Set(visitors.map(v => v.date))].sort();
+  const lineData = {
+    labels: dates,
+    datasets: stages.map(stage => ({
+      label: stage.name,
+      data: dates.map(
+        d => visitors.filter(v => v.date === d && v.stages.includes(stage.name)).length
+      ),
+      borderColor: stage.color,
+      backgroundColor: stage.color,
+      fill: false,
+      tension: 0.3
+    }))
   };
 
   return (
     <div className="dashboard">
-      <h1 className="dashboard-title fade-in">Admin Dashboard</h1>
-
-      {/* Stats Section */}
-      <div className="stats">
-        <div className="stat-card bounce">
-          <h3>Total Contacts</h3>
-          <p className="counter">{contacts.length}</p>
-        </div>
-        <div className="stat-card bounce">
-          <h3>Total Applications</h3>
-          <p className="counter">{applications.length}</p>
-        </div>
-        <div className="stat-card bounce">
-          <h3>Approved</h3>
-          <p className="counter">{applications.filter(app => app.status === "Approved").length}</p>
-        </div>
-        <div className="stat-card bounce">
-          <h3>Enrolled Students</h3>
-          <p className="counter">{students.length}</p>
-        </div>
+      <div className="pipeline-header">
+        {stages.map(stage => {
+          const count = visitors.filter(v => v.stages.includes(stage.name)).length;
+          return (
+            <div
+              key={stage.name}
+              className={`pipeline-stage ${stage.name.toLowerCase()} ${selectedStage === stage.name ? "active" : ""}`}
+              onClick={() => setSelectedStage(stage.name)}
+            >
+              {stage.name} ({count})
+            </div>
+          );
+        })}
       </div>
 
-      {/* Tables Section */}
-      <div className="dashboard-grid">
-        <section className="card slide-up">
-          <h2>Contact Form Submissions</h2>
-          <div className="table-wrapper">
-            <table className="styled-table colorful-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Message</th>
+      {/* Visitor details */}
+      <section className="card">
+        <h2>{selectedStage} Visitors</h2>
+        <div className="table-wrapper">
+          <table className="styled-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Origin</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Date of Last Interaction</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredVisitors.map(v => (
+                <tr key={`${v.id}-${v.name}`}>
+                  <td>{v.name}</td>
+                  <td>{v.origin}</td>
+                  <td>{v.email}</td>
+                  <td>{v.phone}</td>
+                  <td>{v.stages.join(", ")}</td>
+                  <td>{v.date}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {contacts.map((contact) => (
-                  <tr key={contact.id}>
-                    <td>{contact.name}</td>
-                    <td>{contact.email}</td>
-                    <td>{contact.phone}</td>
-                    <td>{contact.message}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="card slide-up">
-          <h2>Enrollment Applications</h2>
-          <div className="table-wrapper">
-            <table className="styled-table colorful-table">
-              <thead>
+              ))}
+              {filteredVisitors.length === 0 && (
                 <tr>
-                  <th>Applicant</th>
-                  <th>Course</th>
-                  <th>Status</th>
+                  <td colSpan="6" style={{ textAlign: "center" }}>No visitors in this stage</td>
                 </tr>
-              </thead>
-              <tbody>
-                {applications.map((app) => (
-                  <tr key={app.id} className={`status-${app.status.toLowerCase()}`}>
-                    <td>{app.applicant_name}</td>
-                    <td>{app.course}</td>
-                    <td>{app.status}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Charts */}
+      <div className="charts">
+        <section className="card">
+          <h2>Stage Distribution (Pie)</h2>
+          <Pie data={pieData} />
         </section>
 
-        <section className="card slide-up">
-          <h2>Enrolled Students</h2>
-          <div className="table-wrapper">
-            <table className="styled-table colorful-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Course</th>
-                  <th>Start Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((student) => (
-                  <tr key={student.id}>
-                    <td>{student.name}</td>
-                    <td>{student.course}</td>
-                    <td>{student.start_date}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-
-      {/* Charts Section */}
-      <div className="dashboard-grid">
-        <section className="card slide-up">
-          <h2>Application Status Overview</h2>
-          <Pie data={applicationStatusData} />
-        </section>
-
-        <section className="card slide-up">
-          <h2>Students by Course</h2>
-          <Bar data={studentsByCourseData} />
+        <section className="card">
+          <h2>Stage Trends Over Time (Line)</h2>
+          <Line data={lineData} />
         </section>
       </div>
     </div>
