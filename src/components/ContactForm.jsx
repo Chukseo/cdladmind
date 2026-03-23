@@ -3,7 +3,7 @@ import "./Dashboard.css";
 
 const AdminDashboard = () => {
   // Example submissions (you can replace with real data or props)
-  const [submissions, setSubmissions] = useState([
+  const [submissions] = useState([
     {
       name: "Jane Doe",
       email: "jane@example.com",

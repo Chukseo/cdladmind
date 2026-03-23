@@ -30,16 +30,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     setVisitors([
-      { id: 1, name: "Jane Dominuc", origin: "Google", email: "jane@example.com", phone: "+2348012345678", stages: ["Leads", "Applied"], date: "Nov 2 2025" },
-      { id: 2, name: "John Tray", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads", "Messaged"], date: "Nov 3 2025" },
+      { id: 1, name: "Jane Dominuc", origin: "Google", email: "jane@example.com", phone: "+2348012345678", stages: ["Leads", "Applied", "Approved"], date: "Nov 2 2025" },
+      { id: 2, name: "John Tray", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads"], date: "Nov 3 2025" },
       { id: 3, name: "Mary Johnson", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Pending"], date: "Nov 4 2025" },
-      { id: 4, name: "David Musa", origin: "Direct", email: "david@example.com", phone: "+2348056789123", stages: ["Leads", "Applied", "Contacted"], date: "Nov 5 2025" },
+      { id: 4, name: "David Musa", origin: "Direct", email: "david@example.com", phone: "+2348056789123", stages: ["Leads", "Applied", "Contacted", "Approved"], date: "Nov 5 2025" },
       { id: 5, name: "John Smith", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads", "Contacted"], date: "Nov 6 2025" },
       { id: 6, name: "Mary Haze", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Applied"], date: "Nov 7 2025" },
-      { id: 7, name: "David Karl", origin: "Direct", email: "david@example.com", phone: "+2348056789123", stages: ["Leads", "Messaged"], date: "Nov 8 2025" },
+      { id: 7, name: "David Karl", origin: "Direct", email: "david@example.com", phone: "+2348056789123", stages: ["Leads", "Applied", "Approved"], date: "Nov 8 2025" },
       { id: 8, name: "Jane Drake", origin: "Google", email: "jane@example.com", phone: "+2348012345678", stages: ["Leads", "Contacted"], date: "Nov 9 2025" },
       { id: 9, name: "John Park", origin: "Social Media", email: "john@example.com", phone: "+2348098765432", stages: ["Leads", "Applied"], date: "Nov 10 2025" },
-      { id: 10, name: "Mary Kelly", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Messaged"], date: "Nov 11 2025" }
+      { id: 10, name: "Mary Kelly", origin: "Referral", email: "mary@example.com", phone: "+2348023456789", stages: ["Leads", "Applied", "Approved"], date: "Nov 11 2025" }
     ]);
   }, []);
 
@@ -47,7 +47,7 @@ const Dashboard = () => {
     { name: "Leads", color: "#f57c00" },
     { name: "Contacted", color: "#ff9800" },
     { name: "Applied", color: "#2196f3" },
-    { name: "Messaged", color: "#4caf50" },
+    { name: "Approved", color: "#4caf50" },
     { name: "Pending", color: "#4b534c" }
   ];
 
@@ -106,7 +106,7 @@ const Dashboard = () => {
 
       {/* Visitor details */}
       <section className="card">
-        <h2>{selectedStage} Visitors</h2>
+        <h2>{selectedStage} </h2>
         <div className="table-wrapper">
           <table className="styled-table">
             <thead>
@@ -115,7 +115,7 @@ const Dashboard = () => {
                 <th>Origin</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Status</th>
+                <th>Lead Category</th>
                 <th>Date of Last Interaction</th>
               </tr>
             </thead>
@@ -143,12 +143,12 @@ const Dashboard = () => {
       {/* Charts */}
       <div className="charts">
         <section className="card">
-          <h2>Stage Distribution (Pie)</h2>
+          <h2>Leads Distribution (Pie)</h2>
           <Pie data={pieData} />
         </section>
 
         <section className="card">
-          <h2>Stage Trends Over Time (Line)</h2>
+          <h2>Leads Trend Over Time (Line)</h2>
           <Line data={lineData} />
         </section>
       </div>
