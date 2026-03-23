@@ -18,6 +18,38 @@ const ApplicationDashboard = () => {
       emergencyContact: "+2348098765432",
       details: "John is interested in basic truck driving. He has a strong background in Truck Driving.",
       approved: false
+    },
+    {
+      id: 3,
+      name: "Karl Smith",
+      preferredClass: "A",
+      emergencyContact: "+2348098765432",
+      details: "John is interested in basic truck driving. He has a strong background in Truck Driving.",
+      approved: false
+    },
+    {
+      id: 4,
+      name: "Gabriel Smith",
+      preferredClass: "A",
+      emergencyContact: "+2348098765432",
+      details: "John is interested in basic truck driving. He has a strong background in Truck Driving.",
+      approved: false
+    },
+    {
+      id: 5,
+      name: "Mark Smith",
+      preferredClass: "A",
+      emergencyContact: "+2348098765432",
+      details: "John is interested in basic truck driving. He has a strong background in Truck Driving.",
+      approved: false
+    },
+    {
+      id: 6,
+      name: "Drake Smith",
+      preferredClass: "A",
+      emergencyContact: "+2348098765432",
+      details: "John is interested in basic truck driving. He has a strong background in Truck Driving.",
+      approved: false
     }
   ]);
 
